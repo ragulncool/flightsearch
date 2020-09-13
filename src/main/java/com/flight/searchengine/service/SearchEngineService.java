@@ -17,15 +17,13 @@ import com.flight.searchengine.entity.FlightDetails;
 import com.flight.searchengine.repository.SearchEngineRepository;
 @Service
 public class SearchEngineService{
-	
+
 	@Autowired  
 	SearchEngineRepository repo;
-	
+
 	String line="";
 
-//	public void insertDataToDB(FlightDetails e);
-
-	 public void insertDataFromCsv() {
+	public void insertDataFromCsv() {
 		FlightDetails e= new FlightDetails();
 		try{
 			BufferedReader br=new BufferedReader(new FileReader("src/main/resources/flightdetails6.csv"));
@@ -33,35 +31,24 @@ public class SearchEngineService{
 				System.out.println("Line"+line);
 				String [] data=line.split(",");
 				e.setFlightName(data[0]);
-	e.setSource(data[1]);
-	e.setDestination(data[2]);
-	
-	 
-	   Timestamp timestampdep = Timestamp.valueOf(data[3]);
-		e.setDeparture(timestampdep);
-		 Timestamp timestamparr = Timestamp.valueOf(data[4]);
-
-		e.setArrival(timestamparr);
-		e.setOffercode(data[5]);
-		e.setId(Integer.parseInt(data[6]));
-		e.setStops(Integer.parseInt(data[7]));
-		e.setDuration(Long.parseLong(data[8]));
+				e.setSource(data[1]);
+				e.setDestination(data[2]);
+				Timestamp timestampdep = Timestamp.valueOf(data[3]);
+				e.setDeparture(timestampdep);
+				Timestamp timestamparr = Timestamp.valueOf(data[4]);	
+				e.setArrival(timestamparr);
+				e.setOffercode(data[5]);
+				e.setId(Integer.parseInt(data[6]));
+				e.setStops(Integer.parseInt(data[7]));
+				e.setDuration(Long.parseLong(data[8]));
+				e.setPrice(Integer.parseInt(data[9]));
 				repo.save(e);
 			}
 		}catch(IOException exp){
-			
+
 			exp.printStackTrace();
 		}
-		
+
 	}
-	
-	public List<FlightDetails> fetchFlightDataFlightDetails(FlightDetails details){
-		LocalDateTime departure = details.getDeparture().toLocalDateTime();
-		LocalDateTime arrival = details.getArrival().toLocalDateTime();
-		String source = details.getSource();
-		String destination = details.getDestination();
-       List<FlightDetails> flightdetails = repo.getAvailableFlights(source, destination);
-       return flightdetails;
-	}
-	
+
 }

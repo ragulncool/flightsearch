@@ -7,7 +7,7 @@ public class TestJdbc {
 
 	public static void main(String[] args) {
 
-		String jdbcUrl = "jdbc:mysql://localhost:3306/flight?useSSL=false";
+		String jdbcUrl = "jdbc:mysql://localhost:3306/testdb?useSSL=false";
 		String user = "root";
 		String pass = "root";
 		

@@ -1,5 +1,7 @@
 package com.flight.searchengine.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,12 +47,12 @@ public class SearchEngineController {
 	}
 	
 	@RequestMapping("/fetchFlight")
-	public List<FlightDetails> fetchFlight(@RequestBody FlightDetails request){
-		List<FlightDetails> a= repo.getAvailableFlights( request.getSource(), request.getDestination()) ;
-        System.out.println(request);
-		return a;
+//	public List<FlightDetails> fetchFlight(@RequestBody FlightDetails request){
+//		List<FlightDetails> a= repo.getAvailableFlights( request.getSource(), request.getDestination()) ;
+	public List<FlightDetails> fetchFlight(@RequestParam String source, @RequestParam String destination, @RequestParam Timestamp departure, @RequestParam(required=false, defaultValue="2500") int price, @RequestParam(required=false, defaultValue="4") long duration, @RequestParam(required=false) String flightName, @RequestParam(required=false) String offercode){ 
+		List<FlightDetails> flightDetails= repo.getAvailableFlights(source, destination, departure, price, duration, flightName, offercode) ;
+		return flightDetails;
 	}
-	
 	
 	
 	@RequestMapping("/fetchByStops")
@@ -64,5 +66,6 @@ public class SearchEngineController {
 	public List<FlightDetails> fetchByDuration(@RequestParam long duration){
 		List<FlightDetails> a= repo.findByDuration( duration) ;
 		return a;
+		
 	}
 }
