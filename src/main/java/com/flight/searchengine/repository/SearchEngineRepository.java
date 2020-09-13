@@ -19,10 +19,20 @@ public interface SearchEngineRepository extends CrudRepository<FlightDetails, In
 	
 
 	@Modifying
-	@Query(value = "SELECT flights FROM FLIGHT_DETAILS flights WHERE flights.departure >= departure AND flights.arrival <= arrival"
-			+ "AND flights.source = source AND flights.destination = destination", 
+	@Query(value = "SELECT * FROM FLIGHT_DETAILS flights WHERE "
+			+ " flights.source = :source AND flights.destination = :destination", 
 			  nativeQuery = true)
-	  List<FlightDetails>  getAvailableFlights(@Param("departure") LocalDateTime departure, @Param("source") String source, @Param("destination") String destination);   
+	  List<FlightDetails>  getAvailableFlights(  @Param("source") String source, @Param("destination") String destination);
+
+
+
+
+	List<FlightDetails> findByStops(int stops);
+
+
+	List<FlightDetails> findByDuration(long duration);
+
+
 	
 	
 	

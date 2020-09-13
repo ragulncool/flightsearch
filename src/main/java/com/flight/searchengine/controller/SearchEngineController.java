@@ -1,8 +1,10 @@
 package com.flight.searchengine.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.flight.searchengine.entity.FlightDetails;
 import com.flight.searchengine.repository.SearchEngineRepository;
 import com.flight.searchengine.service.SearchEngineService;
-import com.flight.searchengine.service.SearchEngineServiceImpl;
+//import com.flight.searchengine.service.SearchEngineServiceImpl;
 
 import lombok.AllArgsConstructor;
 
@@ -43,9 +45,24 @@ public class SearchEngineController {
 	}
 	
 	@RequestMapping("/fetchFlight")
-	public List<FlightDetails> fetchFlight(@RequestParam FlightDetails request){
-		//List<FlightDetails> a= repo.getAvailableFlights(request.getDeparture().toLocalDateTime(), request.getArrival().toLocalDateTime(), request.getSource(), request.getDestination()) ;
+	public List<FlightDetails> fetchFlight(@RequestBody FlightDetails request){
+		List<FlightDetails> a= repo.getAvailableFlights( request.getSource(), request.getDestination()) ;
         System.out.println(request);
-		return null;
+		return a;
+	}
+	
+	
+	
+	@RequestMapping("/fetchByStops")
+	public List<FlightDetails> fetchByStops(@RequestParam int stops){
+		List<FlightDetails> a= repo.findByStops( stops) ;
+		return a;
+	}
+	
+
+	@RequestMapping("/fetchByDuration")
+	public List<FlightDetails> fetchByDuration(@RequestParam long duration){
+		List<FlightDetails> a= repo.findByDuration( duration) ;
+		return a;
 	}
 }
