@@ -64,5 +64,6 @@ public class SearchEngineController {
 	public List<FlightDetails> fetchByDuration(@RequestParam long duration){
 		List<FlightDetails> a= repo.findByDuration( duration) ;
 		return a;
+		
 	}
 }
