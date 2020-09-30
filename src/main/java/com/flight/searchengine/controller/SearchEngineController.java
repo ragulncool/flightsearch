@@ -46,11 +46,20 @@ public class SearchEngineController {
 			return	"CSV INSERTED";
 	}
 	
+//	@RequestMapping("/fetchFlight")
+////	public List<FlightDetails> fetchFlight(@RequestBody FlightDetails request){
+////		List<FlightDetails> a= repo.getAvailableFlights( request.getSource(), request.getDestination()) ;
+//	public List<FlightDetails> fetchFlight(@RequestParam String source, @RequestParam String destination, @RequestParam Timestamp departure, @RequestParam(required=false, defaultValue="2500") int price, @RequestParam(required=false, defaultValue="4") long duration, @RequestParam(required=false) String flightName, @RequestParam(required=false) String offercode){ 
+//		//List<FlightDetails> flightDetails= repo.getAvailableFlights(source, destination, departure, price, duration, flightName, offercode) ;
+//		List<FlightDetails> flightDetails= service.getAvailableFlights(source, offercode) ;
+//
+//		return flightDetails;
+//	}
+	
 	@RequestMapping("/fetchFlight")
-//	public List<FlightDetails> fetchFlight(@RequestBody FlightDetails request){
-//		List<FlightDetails> a= repo.getAvailableFlights( request.getSource(), request.getDestination()) ;
-	public List<FlightDetails> fetchFlight(@RequestParam String source, @RequestParam String destination, @RequestParam Timestamp departure, @RequestParam(required=false, defaultValue="2500") int price, @RequestParam(required=false, defaultValue="4") long duration, @RequestParam(required=false) String flightName, @RequestParam(required=false) String offercode){ 
-		List<FlightDetails> flightDetails= repo.getAvailableFlights(source, destination, departure, price, duration, flightName, offercode) ;
+	public List<FlightDetails> fetchFlight(@RequestParam String source, @RequestParam String destination, @RequestParam Timestamp departure, @RequestParam(required=false, defaultValue="0") int price, @RequestParam(required=false, defaultValue="0") long duration, @RequestParam(required=false) String flightName, @RequestParam(required=false) String offercode){ 
+		System.out.println("URL:"+price+" "+duration+" "+flightName);
+		List<FlightDetails> flightDetails= service.getAvailableFlights(source, destination, departure, price, duration, flightName, offercode) ;
 		return flightDetails;
 	}
 	
