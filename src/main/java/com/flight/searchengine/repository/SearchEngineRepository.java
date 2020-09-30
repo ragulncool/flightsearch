@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -14,9 +14,16 @@ import org.springframework.stereotype.Repository;
 import com.flight.searchengine.entity.FlightDetails;
 
 @Repository
-public interface SearchEngineRepository extends CrudRepository<FlightDetails, Integer> {
+public interface SearchEngineRepository extends CrudRepository<FlightDetails, Integer>,JpaSpecificationExecutor<FlightDetails> {
 
 	FlightDetails save(FlightDetails e);
+	
+	
+	
+	
+	
+	
+	
 	
 
 	@Modifying

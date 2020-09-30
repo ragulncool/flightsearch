@@ -8,9 +8,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.flight.searchengine.entity.FlightDetails;
@@ -48,7 +55,42 @@ public class SearchEngineService{
 
 			exp.printStackTrace();
 		}
-
 	}
+		
+		
+		
+		public List<FlightDetails> getAvailableFlights(String source,String destination,Timestamp departure, int stops, int price,long duration,String flightName,String offercode){
+	        return repo.findAll(new Specification<FlightDetails>() {
+	            @Override
+	            public Predicate toPredicate(Root<FlightDetails> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+	                List<Predicate> predicates = new ArrayList<>();
+	                if(source!=null) {
+	                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("source"), source)));
+	                }
+	                if(destination!=null) {
+	                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("destination"), destination)));
+	                }
+	                if(departure!=null) {
+	                    predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("departure"), departure)));
+	                }
+	                    predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("stops"), stops)));
+	                if(price!=0){
+	                    predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("price"), price)));
+	                }
+	                if(duration!=0){
+	                    predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("duration"), duration)));
+	                }
+	                if(flightName!=null) {
+	                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("flightName"), flightName)));
+	                }
+	                if(offercode!=null) {
+	                    predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("offercode"), offercode)));
+	                }
+	                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+	            }
+	        });
+	    }
+
+	
 
 }
