@@ -28,18 +28,6 @@ public class SearchEngineController {
 	@Autowired
 	private SearchEngineService service;
 
-	@RequestMapping("/welcome")
-	public String msg(){
-		return "Hello World";
-	}
-	
-	
-	@RequestMapping("/delete1")
-	public String delete1(){
-			repo.deleteById(5) ;
-			return	"DELETED";
-	}
-	
 	@RequestMapping("/csvinsert")
 	public String csvinsert(){
 			service.insertDataFromCsv();
@@ -63,17 +51,17 @@ public class SearchEngineController {
 	}
 	
 	
-	@RequestMapping("/fetchByStops")
-	public List<FlightDetails> fetchByStops(@RequestParam int stops){
-		List<FlightDetails> a= repo.findByStops( stops) ;
-		return a;
-	}
-	
-
-	@RequestMapping("/fetchByDuration")
-	public List<FlightDetails> fetchByDuration(@RequestParam long duration){
-		List<FlightDetails> a= repo.findByDuration( duration) ;
-		return a;
-		
-	}
+//	@RequestMapping("/fetchByStops")
+//	public List<FlightDetails> fetchByStops(@RequestParam int stops){
+//		List<FlightDetails> a= repo.findByStops( stops) ;
+//		return a;
+//	}
+//	
+//
+//	@RequestMapping("/fetchByDuration")
+//	public List<FlightDetails> fetchByDuration(@RequestParam long duration){
+//		List<FlightDetails> a= repo.findByDuration( duration) ;
+//		return a;
+//		
+//	}
 }

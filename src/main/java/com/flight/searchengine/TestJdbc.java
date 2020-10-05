@@ -18,14 +18,11 @@ public class TestJdbc {
 					DriverManager.getConnection(jdbcUrl, user, pass);
 			
 			System.out.println("Connection successful!!!");
-			
 		}
 		catch (Exception exc) {
 			exc.printStackTrace();
 		}
-		
 	}
-
 }
 
 

@@ -18,26 +18,19 @@ public interface SearchEngineRepository extends CrudRepository<FlightDetails, In
 
 	FlightDetails save(FlightDetails e);
 	
-	
-	
-	
-	
-	
-	
-	
 
-	@Modifying
-	@Query(value = "SELECT * FROM FLIGHT_DETAILS flights WHERE "
-			+ " flights.source = :source AND flights.destination = :destination AND flights.departure >= :departure AND flights.price <= :price AND flights.duration <= :duration AND flights.flight_Name = :flight_Name AND flights.offercode = :offercode", 
-			  nativeQuery = true)
-	  List<FlightDetails>  getAvailableFlights(@Param("source") String source, @Param("destination") String destination, @Param("departure") Timestamp departure, @Param("price") int price,
-			  @Param("duration") long duration, @Param("flight_Name") String flight_Name, @Param("offercode") String offercode);
-
-
-	List<FlightDetails> findByStops(int stops);
-
-
-	List<FlightDetails> findByDuration(long duration);
+//	@Modifying
+//	@Query(value = "SELECT * FROM FLIGHT_DETAILS flights WHERE "
+//			+ " flights.source = :source AND flights.destination = :destination AND flights.departure >= :departure AND flights.price <= :price AND flights.duration <= :duration AND flights.flight_Name = :flight_Name AND flights.offercode = :offercode", 
+//			  nativeQuery = true)
+//	  List<FlightDetails>  getAvailableFlights(@Param("source") String source, @Param("destination") String destination, @Param("departure") Timestamp departure, @Param("price") int price,
+//			  @Param("duration") long duration, @Param("flight_Name") String flight_Name, @Param("offercode") String offercode);
+//
+//
+//	List<FlightDetails> findByStops(int stops);
+//
+//
+//	List<FlightDetails> findByDuration(long duration);
 	
 }
 
